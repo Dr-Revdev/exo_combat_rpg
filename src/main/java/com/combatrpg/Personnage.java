@@ -10,4 +10,28 @@ public class Personnage {
         this.pointsDeVie = pointsDeVie;
         this.arme = arme;
     }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public int getPointsDeVie() {
+        return pointsDeVie;
+    }
+
+    public Arme getArme() {
+        return arme;
+    }
+
+    public void recevoirDegat(int degats) {
+        pointsDeVie = pointsDeVie - degats;
+
+        if (pointsDeVie < 0) {
+            pointsDeVie = 0;
+        }
+    }
+
+    public boolean estVivant() {
+        return pointsDeVie > 0;
+    }
 }

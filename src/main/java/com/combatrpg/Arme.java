@@ -8,4 +8,12 @@ public class Arme {
         this.nom = nom;
         this.degats = degats;
     }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public int getDegats() {
+        return degats;
+    }
 }
