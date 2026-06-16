@@ -1,19 +1,36 @@
 package com.combatrpg;
 
+import java.util.Random;
+
 public class Arme {
     private String nom;
-    private int degats;
+    private int degatsMin;
+    private int degatsMax;
 
-    public Arme(String nom, int degats) {
+    private final Random random = new Random();
+
+    public Arme(String nom, int degatsMin, int degatsMax) {
         this.nom = nom;
-        this.degats = degats;
+        this.degatsMin = degatsMin;
+        this.degatsMax = degatsMax;
     }
 
     public String getNom() {
         return nom;
     }
 
-    public int getDegats() {
-        return degats;
+    public int getDegatsMin() {
+        return degatsMin;
+    }
+
+    public int getDegatsMax() {
+        return degatsMax;
+    }
+
+    public int getDegatsArme(Personnage attaquant) {
+        if (attaquant.getArme() == null) {
+            return 0;
+        }
+        return random.nextInt(degatsMax - degatsMin + 1) + degatsMin;
     }
 }

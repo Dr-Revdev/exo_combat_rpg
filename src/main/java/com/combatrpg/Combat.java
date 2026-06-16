@@ -4,6 +4,8 @@ public class Combat {
     private Personnage combattant1;
     private Personnage combattant2;
 
+    
+
     public Combat(Personnage combattant1, Personnage combattant2) {
         this.combattant1 = combattant1;
         this.combattant2 = combattant2;
@@ -20,7 +22,7 @@ public class Combat {
             return;
         }
 
-        int degats = attaquant.getArme().getDegats();
+        int degats = attaquant.getArme().getDegatsArme(attaquant);
 
         defenseur.recevoirDegat(degats);
 
@@ -38,14 +40,19 @@ public class Combat {
     }
 
     public void lancerCombat() {
+        int compteurTour = 1;
         System.out.println("Début du combat entre " + combattant1.getNom() + " et " + combattant2.getNom() + ".");
+        
 
         while (combattant1.estVivant() && combattant2.estVivant()) {
+            System.out.println("====================================== Tour " + compteurTour + " ==============================================");
             attaquer(combattant1, combattant2);
 
             if (combattant2.estVivant()) {
                 attaquer(combattant2, combattant1);
             }
+
+            compteurTour += 1;
         }
 
         if (combattant1.estVivant()) {
