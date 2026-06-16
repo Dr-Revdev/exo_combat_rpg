@@ -27,10 +27,7 @@ public class Arme {
         return degatsMax;
     }
 
-    public int getDegatsArme(Personnage attaquant) {
-        if (attaquant.getArme() == null) {
-            return 0;
-        }
+    public int getDegatsArme() {
         return random.nextInt(degatsMax - degatsMin + 1) + degatsMin;
     }
 }

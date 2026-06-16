@@ -22,14 +22,21 @@ public class Combat {
             return;
         }
 
-        int degats = attaquant.getArme().getDegatsArme(attaquant);
+        Arme arme = attaquant.getArme();
+
+        if (arme == null) {
+            System.out.println(attaquant.getNom() + " n'a pas d'arme et ne peut pas attaquer.");
+            return;
+        }
+
+        int degats = arme.getDegatsArme();
 
         defenseur.recevoirDegat(degats);
 
         System.out.println(
             attaquant.getNom() + " attaque " +
             defenseur.getNom() + " avec " +
-            attaquant.getArme().getNom() + " et inflige " +
+            arme.getNom() + " et inflige " +
             degats + " dégâts."
         );
 
