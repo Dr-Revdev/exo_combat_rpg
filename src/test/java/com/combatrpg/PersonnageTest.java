@@ -10,7 +10,7 @@ public class PersonnageTest {
     @Test
     void recevoirDegatDiminueLesPointsDeVie() {
         Arme arme = new Arme("Épée courte", 2, 6);
-        Personnage personnage = new Personnage("Arthur", 100, arme);
+        Personnage personnage = new Personnage("Arthur", 100, arme, null);
 
         personnage.recevoirDegat(25);
 
@@ -20,7 +20,7 @@ public class PersonnageTest {
     @Test
     void recevoirDegatNeDescendPasSousZero() {
         Arme arme = new Arme("Epée courte", 2, 6);
-        Personnage personnage = new Personnage("Arthur", 100, arme);
+        Personnage personnage = new Personnage("Arthur", 100, arme, null);
 
         personnage.recevoirDegat(150);
 
@@ -30,7 +30,7 @@ public class PersonnageTest {
     @Test
     void estVivantRetourneTrueQuandLePersonnageADesPointDeVie() {
         Arme arme = new Arme("Epée courte", 2, 6);
-        Personnage personnage = new Personnage("Arthur", 100, arme);
+        Personnage personnage = new Personnage("Arthur", 100, arme, null);
 
         assertTrue(personnage.estVivant());
     }
@@ -38,7 +38,7 @@ public class PersonnageTest {
     @Test
     void estVivantRetourneFalseQuandLePersonnageNaPasDePointsDeVie() {
         Arme arme = new Arme("Epée courte", 2, 6);
-        Personnage personnage = new Personnage("Arthur", 100, arme);
+        Personnage personnage = new Personnage("Arthur", 100, arme, null);
 
         personnage.recevoirDegat(150);
 
@@ -51,7 +51,7 @@ public class PersonnageTest {
 
         IllegalArgumentException exception = assertThrows(
             IllegalArgumentException.class,
-            () -> new Personnage("Arthur", 0, arme)
+            () -> new Personnage("Arthur", 0, arme, null)
         );
 
         assertTrue(exception.getMessage() != null);
@@ -61,7 +61,7 @@ public class PersonnageTest {
     void constructeurRefuseArmeNull() {
         IllegalArgumentException exception = assertThrows(
             IllegalArgumentException.class,
-            () -> new Personnage("Arthur", 100, null)
+            () -> new Personnage("Arthur", 100, null, null)
         );
 
         assertTrue(exception.getMessage() != null);

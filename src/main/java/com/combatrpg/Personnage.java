@@ -4,8 +4,9 @@ public class Personnage {
     private String nom;
     private int pointsDeVie;
     private Arme arme;
+    private Armure armure;
 
-    public Personnage(String nom, int pointsDeVie, Arme arme) {
+    public Personnage(String nom, int pointsDeVie, Arme arme, Armure armure) {
         if (nom == null || nom.isBlank()) {
             throw new IllegalArgumentException("Le nom du personnage ne peut pas être vide.");
         }
@@ -21,6 +22,7 @@ public class Personnage {
         this.nom = nom;
         this.pointsDeVie = pointsDeVie;
         this.arme = arme;
+        this.armure = armure;
     }
 
     public String getNom() {
@@ -36,7 +38,10 @@ public class Personnage {
     }
 
     public void recevoirDegat(int degats) {
-        pointsDeVie = pointsDeVie - degats;
+        if ((degats - armure.getDefense()) > 0)
+            return;
+        else pointsDeVie = pointsDeVie - (degats - armure.getDefense());
+        
 
         if (pointsDeVie < 0) {
             pointsDeVie = 0;
