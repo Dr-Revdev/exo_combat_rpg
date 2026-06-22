@@ -37,6 +37,10 @@ public class Personnage {
         return arme;
     }
 
+    public Armure getArmure() {
+        return armure;
+    }
+
     public void recevoirDegat(int degats) {
         int defense = 0;
 

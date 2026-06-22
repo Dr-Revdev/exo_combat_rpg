@@ -8,7 +8,9 @@ public class Main {
         Personnage arthur = new Personnage("Arthur", 100, epee, null);
         Personnage thorgrim = new Personnage("Thorgrim", 100, hache, null);
 
-        Combat combat = new Combat(arthur, thorgrim);
+        MenuCombat menuCombat = new MenuCombat();
+
+        Combat combat = new Combat(arthur, thorgrim, menuCombat);
 
         combat.lancerCombat();
     }
