@@ -76,7 +76,7 @@ public class Combat {
                     continue;
 
                 case FUIR:
-                    System.out.println("Arthur fuit le combat");
+                    System.out.println(combattant1.getNom() + " fuit le combat");
                     return;
 
                 default:
