@@ -66,4 +66,15 @@ public class PersonnageTest {
 
         assertTrue(exception.getMessage() != null);
     }
+
+    @Test
+    void recevoirDegatPrendEnCompteLArmure() {
+        Arme arme = new Arme("Epée courte", 2, 6);
+        Armure armure = new Armure("Cotte de mailles", 5);
+        Personnage personnage = new Personnage("Arthur", 100, arme, armure);
+
+        personnage.recevoirDegat(20);
+
+        assertEquals(85, personnage.getPointsDeVie());
+    }
 }

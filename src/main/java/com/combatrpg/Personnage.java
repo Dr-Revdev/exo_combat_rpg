@@ -38,10 +38,19 @@ public class Personnage {
     }
 
     public void recevoirDegat(int degats) {
-        if ((degats - armure.getDefense()) > 0)
-            return;
-        else pointsDeVie = pointsDeVie - (degats - armure.getDefense());
-        
+        int defense = 0;
+
+        if (armure != null) {
+            defense = armure.getDefense();
+        }
+
+        int degatsReels = degats - defense;
+
+        if (degatsReels < 0) {
+            degatsReels = 0;
+        }
+
+        pointsDeVie = pointsDeVie - degatsReels;
 
         if (pointsDeVie < 0) {
             pointsDeVie = 0;
