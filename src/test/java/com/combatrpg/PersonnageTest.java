@@ -4,13 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
 public class PersonnageTest {
     @Test
     void recevoirDegatDiminueLesPointsDeVie() {
         Arme arme = new Arme("Épée courte", 2, 6);
-        Personnage personnage = new Personnage("Arthur", 100, arme, null);
+        Personnage personnage = new Personnage("Arthur", 100, 100, arme, null);
 
         personnage.recevoirDegat(25);
 
@@ -20,7 +21,7 @@ public class PersonnageTest {
     @Test
     void recevoirDegatNeDescendPasSousZero() {
         Arme arme = new Arme("Epée courte", 2, 6);
-        Personnage personnage = new Personnage("Arthur", 100, arme, null);
+        Personnage personnage = new Personnage("Arthur", 100, 100, arme, null);
 
         personnage.recevoirDegat(150);
 
@@ -30,7 +31,7 @@ public class PersonnageTest {
     @Test
     void estVivantRetourneTrueQuandLePersonnageADesPointDeVie() {
         Arme arme = new Arme("Epée courte", 2, 6);
-        Personnage personnage = new Personnage("Arthur", 100, arme, null);
+        Personnage personnage = new Personnage("Arthur", 100, 100, arme, null);
 
         assertTrue(personnage.estVivant());
     }
@@ -38,7 +39,7 @@ public class PersonnageTest {
     @Test
     void estVivantRetourneFalseQuandLePersonnageNaPasDePointsDeVie() {
         Arme arme = new Arme("Epée courte", 2, 6);
-        Personnage personnage = new Personnage("Arthur", 100, arme, null);
+        Personnage personnage = new Personnage("Arthur", 100, 100, arme, null);
 
         personnage.recevoirDegat(150);
 
@@ -51,7 +52,7 @@ public class PersonnageTest {
 
         IllegalArgumentException exception = assertThrows(
             IllegalArgumentException.class,
-            () -> new Personnage("Arthur", 0, arme, null)
+            () -> new Personnage("Arthur", 0, 100, arme, null)
         );
 
         assertTrue(exception.getMessage() != null);
@@ -61,7 +62,7 @@ public class PersonnageTest {
     void constructeurRefuseArmeNull() {
         IllegalArgumentException exception = assertThrows(
             IllegalArgumentException.class,
-            () -> new Personnage("Arthur", 100, null, null)
+            () -> new Personnage("Arthur", 100, 100, null, null)
         );
 
         assertTrue(exception.getMessage() != null);
@@ -71,10 +72,48 @@ public class PersonnageTest {
     void recevoirDegatPrendEnCompteLArmure() {
         Arme arme = new Arme("Epée courte", 2, 6);
         Armure armure = new Armure("Cotte de mailles", 5);
-        Personnage personnage = new Personnage("Arthur", 100, arme, armure);
+        Personnage personnage = new Personnage("Arthur", 100, 100, arme, armure);
 
         personnage.recevoirDegat(20);
 
         assertEquals(85, personnage.getPointsDeVie());
+    }
+
+    @Test
+    void constructeurRefusePointsDeVieSuperieursAuxPointsDeVieMaximum() {
+        try {
+            Arme arme = new Arme("Epée courte", 2, 6);
+            Armure armure = new Armure("Cotte de mailles", 5);
+            Personnage personnage = new Personnage("Arthur", 200, 100, arme, armure);
+
+            fail("Le constructeur aurait dû refuser un personnage avec pointDeVie > pointsDeVieMaximum, mais il a créé : " + personnage.getNom());
+        } catch (IllegalArgumentException exception) {
+            assertTrue(exception.getMessage() != null);
+        }
+    }
+
+    @Test
+    void potionDeSoinModifieLesPointsDeVie() {
+        Arme arme = new Arme("Epée courte", 2, 6);
+        Armure armure = new Armure("Cotte de mailles", 5);
+        Personnage personnage = new Personnage("Arthur", 50, 100, arme, armure);
+        PotionSoin potionSoin = new PotionSoin("Potion de soin", 10);
+
+        personnage.seSoigner(potionSoin.getValeurSoin());
+
+        assertEquals(60, personnage.getPointsDeVie());
+
+    }
+
+    @Test
+    void pointDeVieEgalesPointsDeVieMaximumQuandSoinsSuperieurAPointsDeVieMaximum() {
+        Arme arme = new Arme("Epée courte", 2, 6);
+        Armure armure = new Armure("Cotte de mailles", 5);
+        Personnage personnage = new Personnage("Arthur", 90, 100, arme, armure);
+        PotionSoin potionSoin = new PotionSoin("Potion de soin", 20);
+
+        personnage.seSoigner(potionSoin.getValeurSoin());
+
+        assertEquals(100, personnage.getPointsDeVie());
     }
 }

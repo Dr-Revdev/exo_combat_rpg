@@ -3,16 +3,21 @@ package com.combatrpg;
 public class Personnage {
     private String nom;
     private int pointsDeVie;
+    private int pointsDeVieMaximum;
     private Arme arme;
     private Armure armure;
 
-    public Personnage(String nom, int pointsDeVie, Arme arme, Armure armure) {
+    public Personnage(String nom, int pointsDeVie, int pointsDeVieMaximum, Arme arme, Armure armure) {
         if (nom == null || nom.isBlank()) {
             throw new IllegalArgumentException("Le nom du personnage ne peut pas être vide.");
         }
 
         if (pointsDeVie <= 0) {
             throw new IllegalArgumentException("Les points de vie doivent être supérieurs à 0.");
+        }
+     
+        if (pointsDeVie > pointsDeVieMaximum) {
+            throw new IllegalArgumentException("Les points de vie ne peuvent pas être supérieurs aux points de vie maximum.");
         }
 
         if (arme == null) {
@@ -21,6 +26,7 @@ public class Personnage {
 
         this.nom = nom;
         this.pointsDeVie = pointsDeVie;
+        this.pointsDeVieMaximum = pointsDeVieMaximum;
         this.arme = arme;
         this.armure = armure;
     }
@@ -58,6 +64,15 @@ public class Personnage {
 
         if (pointsDeVie < 0) {
             pointsDeVie = 0;
+        }
+    }
+
+    public void seSoigner(int pointsDeSoin) {
+        
+        pointsDeVie = pointsDeVie + pointsDeSoin;
+
+        if (pointsDeVie > pointsDeVieMaximum) {
+            pointsDeVie = pointsDeVieMaximum;
         }
     }
 
