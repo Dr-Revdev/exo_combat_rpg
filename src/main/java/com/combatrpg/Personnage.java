@@ -4,10 +4,12 @@ public class Personnage {
     private String nom;
     private int pointsDeVie;
     private int pointsDeVieMaximum;
+    private int force;
+    private int vitesse;
     private Arme arme;
     private Armure armure;
 
-    public Personnage(String nom, int pointsDeVie, int pointsDeVieMaximum, Arme arme, Armure armure) {
+    public Personnage(String nom, int pointsDeVie, int pointsDeVieMaximum, int force, int vitesse, Arme arme, Armure armure) {
         if (nom == null || nom.isBlank()) {
             throw new IllegalArgumentException("Le nom du personnage ne peut pas être vide.");
         }
@@ -24,11 +26,21 @@ public class Personnage {
             throw new IllegalArgumentException("Le personnage doit avoir une arme.");
         }
 
+        if (force < 0) {
+            throw new IllegalArgumentException("La statistique de foce doit être supérieur à zéro.");
+        }
+
+        if (vitesse < 0) {
+            throw new IllegalArgumentException("La statistique de vitesse doit être supérieur à zéro.");
+        }
+
         this.nom = nom;
         this.pointsDeVie = pointsDeVie;
         this.pointsDeVieMaximum = pointsDeVieMaximum;
         this.arme = arme;
         this.armure = armure;
+        this.force = force;
+        this.vitesse = vitesse;
     }
 
     public String getNom() {
@@ -45,6 +57,14 @@ public class Personnage {
 
     public Armure getArmure() {
         return armure;
+    }
+
+    public int getForce() {
+        return force;
+    }
+
+    public int getVitesse() {
+        return vitesse;
     }
 
     public void recevoirDegat(int degats) {
@@ -78,5 +98,9 @@ public class Personnage {
 
     public boolean estVivant() {
         return pointsDeVie > 0;
+    }
+
+    public int calculerBonusDegatsForce() {
+        return (int) Math.ceil(force * 0.20);
     }
 }

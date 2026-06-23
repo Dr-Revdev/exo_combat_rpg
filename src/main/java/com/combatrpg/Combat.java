@@ -31,15 +31,17 @@ public class Combat {
             return;
         }
 
-        int degats = arme.getDegatsArme();
+        int degatsArme = arme.getDegatsArme();
+        int bonusForce = attaquant.calculerBonusDegatsForce();
+        int degatsTotal = degatsArme + bonusForce;
 
-        defenseur.recevoirDegat(degats);
+        defenseur.recevoirDegat(degatsTotal);
 
         System.out.println(
             attaquant.getNom() + " attaque " +
             defenseur.getNom() + " avec " +
             arme.getNom() + " et inflige " +
-            degats + " dégâts."
+            degatsTotal + " dégâts."
         );
 
         System.out.println(
@@ -97,6 +99,8 @@ public class Combat {
     private void afficherStatsCombattant(Personnage combattant) {
         System.out.println("Nom : " + combattant.getNom());
         System.out.println("PV : " + combattant.getPointsDeVie());
+        System.out.println("Force : " + combattant.getForce());
+        System.out.println("Vitesse : " + combattant.getVitesse());
         System.out.println("Arme : " + combattant.getArme().getNom());
         System.out.println("Dégâts arme : " + combattant.getArme().getDegatsMin() + "-" + combattant.getArme().getDegatsMax());
         if (combattant.getArmure() != null && !combattant.getArmure().getNom().isBlank()) {
