@@ -3,7 +3,7 @@ package com.combatrpg;
 import java.util.Scanner;
 
 public class MenuCombat {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public MenuCombat() {
         scanner = new Scanner(System.in);
@@ -21,14 +21,11 @@ public class MenuCombat {
             String choix = scanner.nextLine();
 
             switch (choix) {
-                case "1":
-                    return ActionCombat.ATTAQUER;
-                case "2":
-                    return ActionCombat.VOIR_STATS;
-                case "3":
-                    return  ActionCombat.FUIR;
-                default:
-                    System.out.println("Choix invalide.");
+                case "1" -> {return ActionCombat.ATTAQUER;}
+                case "2" -> {return ActionCombat.VOIR_STATS;}
+                case "3" -> {return  ActionCombat.FUIR;}
+                default -> {System.out.println("Choix invalide.");}
+                    
             }
         }
     }

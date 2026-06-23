@@ -118,11 +118,20 @@ public class PersonnageTest {
     }
 
     @Test
-    void leBonusDeDegatRenvoiVingtPourCentSup() {
+    void leBonusDeDegatRenvoiVingtPourCent() {
         Arme arme = new Arme("Epée courte", 1, 1);
         Armure armure = new Armure("Cotte de mailles", 5);
         Personnage personnage = new Personnage("Arthur", 90, 100, 10, 11, arme, armure);
 
         assertEquals(2, personnage.calculerBonusDegatsForce());
+    }
+
+    @Test
+    void leBonusDeDegatRenvoiArrondiSupp() {
+        Arme arme = new Arme("Epée courte", 1, 1);
+        Armure armure = new Armure("Cotte de mailles", 5);
+        Personnage personnage = new Personnage("Arthur", 90, 100, 11, 11, arme, armure);
+
+        assertEquals(3, personnage.calculerBonusDegatsForce());
     }
 }

@@ -1,9 +1,9 @@
 package com.combatrpg;
 
 public class Combat {
-    private Personnage combattant1;
-    private Personnage combattant2;
-    private MenuCombat menuCombat;
+    private final Personnage combattant1;
+    private final Personnage combattant2;
+    private final MenuCombat menuCombat;
 
     
 
@@ -62,13 +62,22 @@ public class Combat {
             System.out.println("Action choisie : " + action);
 
             switch (action) {
-                case ATTAQUER:
-                    attaquer(combattant1, combattant2);
-                    if (combattant2.estVivant()) {
-                        attaquer(combattant2, combattant1);
+                case ATTAQUER -> {
+                    Personnage premierAttaquant;
+                    Personnage secondAttaquant;
+                    if (combattant1.getVitesse() >= combattant2.getVitesse()) {
+                        premierAttaquant = combattant1;
+                        secondAttaquant = combattant2;
+                    } else {
+                        premierAttaquant = combattant2;
+                        secondAttaquant = combattant1;
                     }
-                    break;
-                case VOIR_STATS:
+                    attaquer(premierAttaquant, secondAttaquant);
+                    if (secondAttaquant.estVivant()) {
+                        attaquer(secondAttaquant, premierAttaquant);
+                    }
+                }
+                case VOIR_STATS -> {
                     System.out.println("Statistique du premier combattant");
                     afficherStatsCombattant(combattant1);
                     System.out.println();
@@ -76,14 +85,16 @@ public class Combat {
                     afficherStatsCombattant(combattant2);
 
                     continue;
+                }
 
-                case FUIR:
+                case FUIR -> {
                     System.out.println(combattant1.getNom() + " fuit le combat");
                     return;
-
-                default:
+                }
+                default -> {
                     System.out.println("N'est pas une action valide");
                     continue;
+                }
             }
 
             compteurTour += 1;
